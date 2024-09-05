@@ -4,7 +4,7 @@
 
 In this project, we are given some requirements from Steve over at Adventure Works to create a dashboard for his sales team to use.
 
-### Project Requirements
+## Project Requirements
 
 Let's take a look at the email.
 
@@ -46,7 +46,7 @@ User Stories:
 | 4    | Sales Manager        | A dashboard overview of internet sales               | Follow sales over time against budget                                     | A Power Bi dashboard with graphs and KPIs comparing against budget.    |
 
 
-### Data Collection
+## Data Collection
 
 Using the raw database, we're going to run SQL queries to extract and transform the data that we need to meet the requirments.
 
@@ -137,7 +137,7 @@ ORDER BY
 
 Once we have our usable data, we can run the queries inside of PowerBI and create our data model.
 
-### Data Visualization
+## Data Visualization
 
 First, let's create the data model.
 
