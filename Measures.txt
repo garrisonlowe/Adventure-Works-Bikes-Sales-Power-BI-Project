@@ -1,0 +1,11 @@
+Budget Amount
+Budget Amount = SUM ( FACT_Budget[Budget] )
+--------------------------------------------------------------------------------------------------
+Sales
+Sales = SUM(FACT_InternetSales_CSV[SalesAmount])
+--------------------------------------------------------------------------------------------------
+Sales - Budget Diff
+Sales - Budget = [Sales] - [Budget Amount]
+--------------------------------------------------------------------------------------------------
+Sales/Budget Amount
+Sales / Budget Amount = DIVIDE([Sales], [Budget Amount])
