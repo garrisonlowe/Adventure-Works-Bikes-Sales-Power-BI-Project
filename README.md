@@ -48,7 +48,7 @@ User Stories:
 
 ## Data Collection
 
-Using the raw database, we're going to run SQL queries to extract and transform the data that we need to meet the requirments.
+Using the raw database, we're going to run SQL queries to extract and transform the data that we need to meet the requirements.
 
 **Query 1:** The Calendar Table
 
