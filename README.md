@@ -1,8 +1,10 @@
-[Try it out here!](https://app.powerbi.com/view?r=eyJrIjoiZTU0YWI2OGMtNmI4My00MTUwLTg0NjktYTRiNTk2ZGI3ZDM1IiwidCI6ImJkMGNhZWQyLTBiNTctNDllNy1hMjY2LTYzMWZhNmE2YzIyYSJ9)
+[Try it out here!](https://app.powerbi.com/view?r=eyJrIjoiOTM1MzM1YjYtM2M2Ny00YTE1LWJjYTItNDUyMmQ5ZDFmMWU1IiwidCI6ImJkMGNhZWQyLTBiNTctNDllNy1hMjY2LTYzMWZhNmE2YzIyYSJ9)
 
 # Adventure Works Analysis Dashboard
 
 In this project, we are given some requirements from Steve over at Adventure Works to create a dashboard for his sales team to use.
+
+### Project Requirements
 
 Let's take a look at the email.
 
@@ -29,7 +31,7 @@ From this email, we can pick out that we need the following things:
 - Measure against a budget
 - Look at least 2 years into the past.
 
-Business Demand Overview:
+#### **Business Demand Overview:**
 -	Reporter: Steven – Sales Manager
 -	Value of Change: Visual dashboards and improved Sales reporting or follow up or sales force
 -	Necessary Systems: Power BI, CRM System
@@ -44,6 +46,119 @@ User Stories:
 | 4    | Sales Manager        | A dashboard overview of internet sales               | Follow sales over time against budget                                     | A Power Bi dashboard with graphs and KPIs comparing against budget.    |
 
 
-Images of the Dashboard:
+### Data Collection
+
+Using the raw database, we're going to run SQL queries to extract and transform the data that we need to meet the requirments.
+
+**Query 1:** The Calendar Table
+
+```sql
+SELECT
+       "DateKey",
+       "FullDateAlternateKey" AS Date,
+       "EnglishDayNameOfWeek" AS Day,
+       "WeekNumberOfYear" AS WeekNr,
+       "EnglishMonthName" AS Month,
+       LEFT ("EnglishMonthName", 3) AS MonthShort,
+       "MonthNumberOfYear" AS MonthNo,
+       "CalendarQuarter" AS Quarter,
+       "CalendarYear" AS Year
+FROM
+       "DimDate"
+WHERE
+       "CalendarYear" >= 2019
+;
+```
+
+**Query 2:** The Customer Table
+
+```sql
+SELECT
+    c.customerkey AS CustomerKey,
+    c."FirstName" AS "FirstName",
+    c."LastName" AS "LastName",
+    c."FirstName" + ' ' + c."LastName" AS FullName,
+    CASE c."Gender"
+        WHEN 'M' THEN 'Male'
+        WHEN 'F' THEN 'Female'
+    END AS Gender,
+    c."DateFirstPurchase" AS DateFirstPurchase,
+    g."City" AS CustomerCity
+FROM
+    "DimCustomer" AS c
+    LEFT JOIN "DimGeography" AS g ON g."GeographyKey" = c."GeographyKey"
+ORDER BY
+    "CustomerKey" ASC
+;
+```
+
+**Query 3:** The Product Table
+
+```sql
+SELECT
+    p."ProductKey",
+    p."ProductAlternateKey" AS ProductItemCode,
+    p."EnglishProductName" AS ProductName,
+    ps."EnglishProductSubcategoryName" AS SubCategory, -- Joined in from Sub Category Table
+    pc."EnglishProductCategoryName" AS ProductCategory, -- Joined in from Category Table
+    p."Color" AS ProductColor,
+    p."Size" AS ProductSize,
+    p."ProductLine" AS ProductLine,
+    p."ModelName" AS ProductModelName,
+    p."EnglishDescription" AS ProductDescription,
+    ISNULL (p."Status", 'Outdated') AS ProductStatus
+FROM
+    "DimProduct" as p
+    LEFT JOIN "DimProductSubcategory" AS ps ON ps."ProductSubcategoryKey" = p."ProductSubcategoryKey"
+    LEFT JOIN "DimProductCategory" AS pc ON ps."ProductCategoryKey" = pc."ProductCategoryKey"
+order by
+    p."ProductKey" ASC
+```
+
+**Query 4:** The Sales Table 
+
+```sql
+SELECT
+    "ProductKey",
+    "OrderDateKey",
+    "DueDateKey",
+    "ShipDateKey",
+    "CustomerKey",
+    "SalesOrderNumber",
+    "SalesAmount"
+FROM
+    "FactInternetSales"
+WHERE
+    LEFT ("OrderDateKey", 4) >= YEAR (GETDATE()) - 6
+ORDER BY
+    "OrderDateKey" ASC
+;
+```
+
+Once we have our usable data, we can run the queries inside of PowerBI and create our data model.
+
+### Data Visualization
+
+First, let's create the data model.
+
+![AdventureWorks Data Model](https://github.com/user-attachments/assets/96823bc6-3b20-4086-80a6-a6766c8cf8cf)
+
+Next, design the report.
+
+#### Sales Overview
+
+![Sales Overview](https://github.com/user-attachments/assets/7c291976-9f8c-4673-ad54-b9c9524b976b)
+
+
+
+#### Customer Details
+
+![Customer Details](https://github.com/user-attachments/assets/c2add40c-4038-4207-8c7d-74013a6a83b9)
+
+
+
+#### Product Details
+
+![Product Details](https://github.com/user-attachments/assets/8dca812d-4b18-49fd-b4d3-5cb44d97a6c0)
 
 
