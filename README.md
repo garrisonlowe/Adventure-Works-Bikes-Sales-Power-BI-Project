@@ -147,18 +147,17 @@ Next, design the report.
 
 #### Sales Overview
 
-![Sales Overview](https://github.com/user-attachments/assets/7c291976-9f8c-4673-ad54-b9c9524b976b)
-
+![Sales Overview SS](https://github.com/user-attachments/assets/43e846f8-deaa-419b-8669-28ef2345fa4d)
 
 
 #### Customer Details
 
-![Customer Details](https://github.com/user-attachments/assets/c2add40c-4038-4207-8c7d-74013a6a83b9)
+![Customer Details Ss](https://github.com/user-attachments/assets/7d247750-8d7f-4148-a461-2f1d970798e1)
 
 
 
 #### Product Details
 
-![Product Details](https://github.com/user-attachments/assets/8dca812d-4b18-49fd-b4d3-5cb44d97a6c0)
+![Products Details SS](https://github.com/user-attachments/assets/82e4b256-b098-4c92-88e9-2963254f62b4)
 
 
